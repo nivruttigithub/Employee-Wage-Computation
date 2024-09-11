@@ -2,9 +2,10 @@ package com.bridgelabz.empwage;
 
 public class Main {
     public static void main(String[] args) {
-        CalculateEmpWage companyA = new CalculateEmpWage("Accenture",30,3,10);
-        companyA.computeEmpWage();
-        CalculateEmpWage companyB = new CalculateEmpWage("QK",25,3,15);
-        companyB.computeEmpWage();
+       EmpWageManager wageManager = new EmpWageManager();
+        // Add companies and compute their wages
+        wageManager.addCompany(" TCS ", 20, 2, 10);  // $20 per hour, 2 working days, max 10 hours
+        wageManager.addCompany(" Wipro ", 25, 3, 15);  // $25 per hour, 3 working days, max 15 hours
+        
     }
 }

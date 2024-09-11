@@ -1,11 +1,14 @@
 package com.bridgelabz.empwage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CalculateEmpWage {
     private String compName;
     private int empRatePerHour;
     private int numOfWorkingDays;
     private int maxHrsInMonth;
-    private int totalEmpWage;  // New instance variable to save total wage
+    private int totalEmpWage;  // total Wage for this Company
 
     public CalculateEmpWage(String compName, int empRatePerHour, int numOfWorkingDays, int maxHrsInMonth) {
         this.compName = compName;
@@ -48,4 +51,21 @@ public class CalculateEmpWage {
         }
 
     }
+// Manager class to handle multiple companies
+class EmpWageManager {
+    // List to hold wage details of multiple companies
+    private List<CalculateEmpWage> companyWageList;
+
+    // Constructor to initialize the company list
+    public EmpWageManager() {
+        companyWageList = new ArrayList<>();
+    }
+
+    // Method to add a new company and compute its wage
+    public void addCompany(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHrsInMonth) {
+        CalculateEmpWage company = new CalculateEmpWage(companyName, empRatePerHour, numOfWorkingDays, maxHrsInMonth);
+        company.computeEmpWage();  // Compute the wage for this company
+        companyWageList.add(company);  // Add the company to the list
+    }
+}
 
