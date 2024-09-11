@@ -5,13 +5,17 @@ public class CalculateEmpWage {
     private int empRatePerHour;
     private int numOfWorkingDays;
     private int maxHrsInMonth;
-    public CalculateEmpWage(String compName,int empRatePerHour, int numOfWorkingDays, int maxHrsInMonth) {
+    private int totalEmpWage;  // New instance variable to save total wage
+
+    public CalculateEmpWage(String compName, int empRatePerHour, int numOfWorkingDays, int maxHrsInMonth) {
         this.compName = compName;
         this.empRatePerHour = empRatePerHour;
         this.numOfWorkingDays = numOfWorkingDays;
         this.maxHrsInMonth = maxHrsInMonth;
+        this.totalEmpWage = 0; // Initialize total wage to 0
     }
-    public int computeEmpWage() {
+
+    public void computeEmpWage() {
         int empHrs = 0;
         int totalEmpHrs = 0;
         int totalWorkingDays = 0;
@@ -31,13 +35,17 @@ public class CalculateEmpWage {
                     empHrs = 0;
             }
 
-            totalEmpHrs =totalEmpHrs + empHrs;
-            System.out.println("Company Name : "+compName+" | "+" Day: " + totalWorkingDays + " EmpHrs: " + empHrs);
+            totalEmpHrs = totalEmpHrs + empHrs;
+            System.out.println("Company Name : " + compName + " | " + " Day: " + totalWorkingDays + " EmpHrs: " + empHrs);
         }
 
-        int totalEmpWage = totalEmpHrs * empRatePerHour;
-        System.out.println("Total Emp Wage for Company "+compName+" is " + totalEmpWage);
-        return totalEmpWage;
+          totalEmpWage = totalEmpHrs * empRatePerHour;
+        System.out.println("Total Emp Wage for Company " + compName + " is " + totalEmpWage);
+    }
+        // Getter method to retrieve the total wage for the company
+        public int getTotalEmpWage () {
+            return totalEmpWage;
+        }
+
     }
 
-}
