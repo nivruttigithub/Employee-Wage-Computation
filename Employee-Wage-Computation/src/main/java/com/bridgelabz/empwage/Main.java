@@ -16,5 +16,6 @@ public class Main {
             System.out.println("Total Wage for " + companyName + ": " + wageManager.getTotalWage(companyName));
             System.out.println("Daily Wages for " + companyName + ": " + wageManager.getDailyWages(companyName));
         }
+        
     }
 }

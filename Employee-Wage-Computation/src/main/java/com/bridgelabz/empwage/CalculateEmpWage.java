@@ -103,6 +103,5 @@ class EmpWageManager implements EmpWageBuilder {
         }
         return new ArrayList<>(); // Return  empty list if company not found
     }
-
 }
 
