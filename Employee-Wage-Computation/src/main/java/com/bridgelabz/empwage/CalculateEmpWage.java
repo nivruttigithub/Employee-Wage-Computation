@@ -9,6 +9,7 @@ public class CalculateEmpWage{
     private int numOfWorkingDays;
     private int maxHrsInMonth;
     private int totalEmpWage;  // total Wage for this Company
+    private List<Integer> dailyWages; // To store daily wages
 
     public CalculateEmpWage(String compName, int empRatePerHour, int numOfWorkingDays, int maxHrsInMonth) {
         this.compName = compName;
@@ -16,6 +17,7 @@ public class CalculateEmpWage{
         this.numOfWorkingDays = numOfWorkingDays;
         this.maxHrsInMonth = maxHrsInMonth;
         this.totalEmpWage = 0; // Initialize total wage to 0
+        this.dailyWages = new ArrayList<>(); // Initialize daily wages list
     }
 
     public void computeEmpWage() {
@@ -39,7 +41,9 @@ public class CalculateEmpWage{
             }
 
             totalEmpHrs = totalEmpHrs + empHrs;
-            System.out.println("Company Name : " + compName + " | " + " Day: " + totalWorkingDays + " EmpHrs: " + empHrs);
+            int dailyWage = empHrs * empRatePerHour;
+            dailyWages.add(dailyWage);   // Add daily Wage to the list
+            System.out.println("Company Name : " + compName + " | " + " Day: " + totalWorkingDays + " EmpHrs: " + empHrs+ " Daily Wage: " + dailyWage);
         }
 
           totalEmpWage = totalEmpHrs * empRatePerHour;
@@ -52,6 +56,9 @@ public class CalculateEmpWage{
 
     public String getCompName() {
         return compName;
+    }
+    public List<Integer> getDailyWages() {
+        return dailyWages;
     }
     }
 // Manager class to handle multiple companies
@@ -87,6 +94,14 @@ class EmpWageManager implements EmpWageBuilder {
             }
         }
         return 0;
+    }
+    public List<Integer> getDailyWages(String companyName) {
+        for (CalculateEmpWage company : companyWageList) {
+            if (company.getCompName().equals(companyName)) {
+                return company.getDailyWages();
+            }
+        }
+        return new ArrayList<>(); // Return  empty list if company not found
     }
 
 }

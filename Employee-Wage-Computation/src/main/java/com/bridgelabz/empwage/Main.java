@@ -10,5 +10,11 @@ public class Main {
         System.out.println();
         wageManager.computeEmpWage();
 
+        // Save and display the total wage and daily wages for each company
+        String[] companies = {"TCS", "Wipro"};
+        for (String companyName : companies) {
+            System.out.println("Total Wage for " + companyName + ": " + wageManager.getTotalWage(companyName));
+            System.out.println("Daily Wages for " + companyName + ": " + wageManager.getDailyWages(companyName));
+        }
     }
 }
