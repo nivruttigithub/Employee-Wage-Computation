@@ -3,7 +3,7 @@ package com.bridgelabz.empwage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculateEmpWage {
+public class CalculateEmpWage implements  EmpWageBuilder{
     private String compName;
     private int empRatePerHour;
     private int numOfWorkingDays;
@@ -17,7 +17,11 @@ public class CalculateEmpWage {
         this.maxHrsInMonth = maxHrsInMonth;
         this.totalEmpWage = 0; // Initialize total wage to 0
     }
+    @Override
+    public void addCompany(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHrsInMonth) {
 
+    }
+    @Override
     public void computeEmpWage() {
         int empHrs = 0;
         int totalEmpHrs = 0;
@@ -45,27 +49,53 @@ public class CalculateEmpWage {
           totalEmpWage = totalEmpHrs * empRatePerHour;
         System.out.println("Total Emp Wage for Company " + compName + " is " + totalEmpWage);
     }
-        // Getter method to retrieve the total wage for the company
-        public int getTotalEmpWage () {
+//        // Getter method to retrieve the total wage for the company
+//        public int getTotalEmpWage () {
+//            return totalEmpWage;
+//        }
+
+    @Override
+    public int getTotalWage(String companyName) {
+        if (this.compName.equals(companyName)) {
             return totalEmpWage;
         }
-
+        return 0;
+    }
     }
 // Manager class to handle multiple companies
-class EmpWageManager {
+class EmpWageManager implements EmpWageBuilder {
     // List to hold wage details of multiple companies
     private List<CalculateEmpWage> companyWageList;
 
     // Constructor to initialize the company list
     public EmpWageManager() {
+
         companyWageList = new ArrayList<>();
     }
 
     // Method to add a new company and compute its wage
     public void addCompany(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHrsInMonth) {
-        CalculateEmpWage company = new CalculateEmpWage(companyName, empRatePerHour, numOfWorkingDays, maxHrsInMonth);
-        company.computeEmpWage();  // Compute the wage for this company
-        companyWageList.add(company);  // Add the company to the list
+        CalculateEmpWage comp = new CalculateEmpWage(companyName, empRatePerHour, numOfWorkingDays, maxHrsInMonth);
+        comp.computeEmpWage();  // Compute the wage for this company
+        companyWageList.add(comp);  // Add the company to the list
     }
+    @Override
+    public void computeEmpWage() {
+        for (CalculateEmpWage company : companyWageList) {
+            company.computeEmpWage(); // Compute wages for each company
+        }
+    }
+
+    @Override
+    public int getTotalWage(String companyName) {
+        for (CalculateEmpWage company : companyWageList) {
+            int wage = company.getTotalWage(companyName);
+            if (wage != 0) {
+                return wage;
+            }
+        }
+        return 0;
+    }
+
 }
 
